@@ -1,0 +1,13 @@
+BasedOnStyle: WebKit
+Language: Cpp
+AlignConsecutiveAssignments: true
+AlignTrailingComments: true
+BreakBeforeBraces: Allman
+SpacesInParentheses: true
+# BreakBeforeBraces: Custom
+# BraceWrapping:
+#   AfterEnum: true
+#   AfterControlStatement: true
+#   AfterFunction: true
+#   AfterStruct: true
+#   SplitEmptyFunction: false

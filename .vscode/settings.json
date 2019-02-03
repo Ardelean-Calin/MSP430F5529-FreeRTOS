@@ -1,0 +1,15 @@
+{
+  "files.associations": {
+    "driverlib.h": "c",
+    "hw_memmap.h": "c",
+    "timer_b.h": "c",
+    "timer_a.h": "c",
+    "msp430f5xx_6xxgeneric.h": "c",
+    "msp430.h": "c",
+    "freertos.h": "c",
+    "portable.h": "c",
+    "task.h": "c",
+    "freertosconfig.h": "c"
+  },
+  "editor.formatOnSave": true
+}
