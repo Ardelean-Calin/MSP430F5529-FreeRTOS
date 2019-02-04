@@ -30,7 +30,7 @@ MEMORY_MGMT_SRC = $(wildcard $(FREERTOS_DIR)/portable/MemMang/*.c)
 
 ############################################################################################
 # Objects
-OBJECTS=$(FREERTOS_SRC:.c=.o) $(MEMORY_MGMT_SRC:.c=.o) $(HAL_SRC:.c=.o) $(MAIN_SRC:.c=.o) 
+OBJECTS = $(MAIN_SRC:.c=.o) $(FREERTOS_SRC:.c=.o) $(MEMORY_MGMT_SRC:.c=.o) $(HAL_SRC:.c=.o)
 
 ############################################################################################
 # Flags
