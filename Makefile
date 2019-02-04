@@ -10,7 +10,7 @@ OUT_PATH = $(OUT_DIR)/$(OUT_NAME)
 ############################################################################################
 # Target-related files
 LINKER_FILE = msp430f5529.ld
-SUPPORT_FILES = C:/ti/msp430-gcc-support-files/include
+SUPPORT_FILES = C:/ti/msp430-gcc/include
 
 ############################################################################################
 # Executables
@@ -25,7 +25,7 @@ HAL_SRC = $(wildcard $(HAL_DIR)/*.c)
 ############################################################################################
 # FreeRTOS Sources
 FREERTOS_DIR = FreeRTOS/Source
-FREERTOS_SRC = $(wildcard $(FREERTOS_DIR)/*.c) $(wildcard $(FREERTOS_DIR)/portable/GCC/MSP430F449/*.c)
+FREERTOS_SRC = $(wildcard $(FREERTOS_DIR)/*.c) $(wildcard $(FREERTOS_DIR)/portable/GCC/MSP430F5529/*.c)
 MEMORY_MGMT_SRC = $(wildcard $(FREERTOS_DIR)/portable/MemMang/*.c)
 
 ############################################################################################
@@ -35,14 +35,15 @@ OBJECTS = $(MAIN_SRC:.c=.o) $(FREERTOS_SRC:.c=.o) $(MEMORY_MGMT_SRC:.c=.o) $(HAL
 ############################################################################################
 # Flags
 CFLAGS += -mmcu=msp430f5529
-CFLAGS += -I$(FREERTOS_DIR)/include -I$(FREERTOS_DIR)/portable/GCC/MSP430F449 -Iinclude -I$(HAL_DIR) -I$(SUPPORT_FILES) 
+CFLAGS += -I$(FREERTOS_DIR)/include -I$(FREERTOS_DIR)/portable/GCC/MSP430F5529 -Iinclude -I$(HAL_DIR) -I$(SUPPORT_FILES) 
 
 # Linker flags
 LDFLAGS += -mmcu=msp430f5529
 LDFLAGS += -T$(LINKER_FILE) -L$(SUPPORT_FILES)
 
 # Enable for best debugging experience
-CFLAGS += -Og
+CFLAGS += -Og -ggdb
+LDFLAGS += -Og -ggdb
 # Enable for maximum optimisation
 # CFLAGS+=-fdata-sections -ffunction-sections -Wl,--gc-sections
 
@@ -63,16 +64,18 @@ outdir:
 # Targets & build commands
 elf: $(OBJECTS)
 	$(call ECHO_BOLD,"Compilation done. Linking...")
-	$(CC) -g $(LDFLAGS) -o $(OUT_PATH).elf $^
+	$(CC) -g $(LDFLAGS) -o $(OUT_PATH).out $^
 
 hex: elf
-	$(OBJCOPY) -O ihex $(OUT_PATH).elf $(OUT_PATH).hex
+	$(OBJCOPY) -O ihex $(OUT_PATH).out $(OUT_PATH).hex
 
 all: clean outdir elf hex
-	$(call ECHO_BOLD,"Done! .elf and .hex generated in build directory.")
+	$(call ECHO_BOLD,"Done! .out and .hex generated in build directory.")
 	@rm $(MAIN_SRC:.c=.o)
 
 clean:
 	$(call ECHO_BOLD,"Cleaning...")
 	rm -rf $(OUT_DIR)/
 	rm -rf **/*.o
+	rm -rf FreeRTOS/**/*.o
+	rm -rf driverlib/**/*.o

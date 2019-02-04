@@ -2,10 +2,7 @@
   "configurations": [
     {
       "name": "Win32",
-      "includePath": [
-        "${workspaceFolder}/**",
-        "C:/ti/msp430-gcc-support-files/include/**"
-      ],
+      "includePath": ["${workspaceFolder}/**", "C:/ti/msp430-gcc/include/**"],
       "defines": ["_DEBUG", "UNICODE", "_UNICODE", "__MSP430F5529__"],
       "windowsSdkVersion": "10.0.17134.0",
       "compilerPath": "C:/ti/msp430-gcc/bin/msp430-elf-gcc.exe",

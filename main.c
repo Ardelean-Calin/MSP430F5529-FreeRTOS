@@ -5,9 +5,6 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#define TIMER_PERIOD 511
-#define DUTY_CYCLE 350
-
 /* Function prototypes */
 void vBlinkLEDTask( void* pvParameters );
 static void prvSetupHardware( void );
@@ -30,6 +27,7 @@ int main( void )
 /* Do any necessary hardware initialization */
 static void prvSetupHardware( void )
 {
+    taskDISABLE_INTERRUPTS();
     // Stop WDT
     WDT_A_hold( WDT_A_BASE );
 }
@@ -37,12 +35,12 @@ static void prvSetupHardware( void )
 /* Simple blinker task. Blinks on-board LED every 0.5s */
 void vBlinkLEDTask( void* pvParameters )
 {
-    // P4.7 as output
-    GPIO_setAsPeripheralModuleFunctionOutputPin( GPIO_PORT_P4, GPIO_PIN7 );
+    // P1.0 as output
+    GPIO_setAsOutputPin( GPIO_PORT_P1, GPIO_PIN0 );
 
     for ( ;; )
     {
-        GPIO_toggleOutputOnPin( GPIO_PORT_P4, GPIO_PIN7 );
+        GPIO_toggleOutputOnPin( GPIO_PORT_P1, GPIO_PIN0 );
         vTaskDelay( (TickType_t)pdMS_TO_TICKS( 500 ) );
     }
 }
