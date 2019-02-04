@@ -32,8 +32,6 @@ static void prvSetupHardware( void )
 {
     // Stop WDT
     WDT_A_hold( WDT_A_BASE );
-    // Setup timer interrupt. Defined in port.c
-    prvSetupTimerInterrupt();
 }
 
 /* Simple blinker task. Blinks on-board LED every 0.5s */
