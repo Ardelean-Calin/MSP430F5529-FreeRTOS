@@ -8,12 +8,13 @@
 #define TIMER_PERIOD 511
 #define DUTY_CYCLE 350
 
+/* Function prototypes */
 void vBlinkLEDTask( void* pvParameters );
+static void prvSetupHardware( void );
 
 int main( void )
 {
-    // Stop WDT
-    WDT_A_hold( WDT_A_BASE );
+    prvSetupHardware();
 
     xTaskCreate(
         vBlinkLEDTask, "Blinky", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
@@ -26,6 +27,16 @@ int main( void )
     return 0;
 }
 
+/* Do any necessary hardware initialization */
+static void prvSetupHardware( void )
+{
+    // Stop WDT
+    WDT_A_hold( WDT_A_BASE );
+    // Setup timer interrupt. Defined in port.c
+    prvSetupTimerInterrupt();
+}
+
+/* Simple blinker task. Blinks on-board LED every 0.5s */
 void vBlinkLEDTask( void* pvParameters )
 {
     // P4.7 as output
