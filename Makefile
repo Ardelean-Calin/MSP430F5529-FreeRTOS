@@ -6,16 +6,21 @@ MAIN_SRC = main.c
 OUT_DIR = build
 OUT_NAME = main
 OUT_PATH = $(OUT_DIR)/$(OUT_NAME)
+ifeq ($(OS),Windows_NT)
+	MSP430_GCC_PATH = C:/ti/msp430-gcc
+else
+	MSP430_GCC_PATH = ~/ti/msp430-gcc
+endif
 
 ############################################################################################
 # Target-related files
 LINKER_FILE = msp430f5529.ld
-SUPPORT_FILES = C:/ti/msp430-gcc/include
+SUPPORT_FILES = $(MSP430_GCC_PATH)/include
 
 ############################################################################################
 # Executables
-CC = C:/ti/msp430-gcc/bin/msp430-elf-gcc.exe
-OBJCOPY = C:/ti/msp430-gcc/bin/msp430-elf-objcopy.exe
+CC = $(MSP430_GCC_PATH)/bin/msp430-elf-gcc
+OBJCOPY = $(MSP430_GCC_PATH)/bin/msp430-elf-objcopy
 
 ############################################################################################
 # Hardware Abstraction Layer / TI Driverlib
@@ -76,6 +81,4 @@ all: clean outdir elf hex
 clean:
 	$(call ECHO_BOLD,"Cleaning...")
 	rm -rf $(OUT_DIR)/
-	rm -rf **/*.o
-	rm -rf FreeRTOS/**/*.o
-	rm -rf driverlib/**/*.o
+	rm -rf $(OBJECTS)
