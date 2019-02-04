@@ -7,11 +7,19 @@
     {
       "type": "gdb",
       "request": "attach",
-      "gdbpath": "C:/ti/msp430-gcc/bin/msp430-elf-gdb.exe",
       "name": "Attach to gdbserver",
       "executable": "${workspaceRoot}/build/main.out",
       "target": ":55000",
       "remote": true,
+      "autorun": ["load"],
+      "windows": {
+        "gdbpath": "C:/ti/msp430-gcc/bin/msp430-elf-gdb.exe"
+      },
+      "linux": {
+        "gdbpath": "~/ti/msp430-gcc/bin/msp430-elf-gdb"
+      },
+      "preLaunchTask": "Run GDB Server",
+      "postDebugTask": "postdebugKill",
       "cwd": "${workspaceRoot}"
     }
   ]
