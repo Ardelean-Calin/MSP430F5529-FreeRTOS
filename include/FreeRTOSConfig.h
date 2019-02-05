@@ -43,7 +43,7 @@
  * See http://www.freertos.org/a00110.html
  *----------------------------------------------------------*/
 
-#define configUSE_PREEMPTION 0 // Preemtive sheduling doesn't seem to work... TODO
+#define configUSE_PREEMPTION 1
 #define configSUPPORT_STATIC_ALLOCATION 0
 #define configSUPPORT_DYNAMIC_ALLOCATION 1
 #define configUSE_IDLE_HOOK 0
