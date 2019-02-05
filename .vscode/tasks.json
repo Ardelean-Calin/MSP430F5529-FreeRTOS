@@ -4,29 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Run GDB Server",
-      "type": "shell",
-      "dependsOn": "Build ELF",
-      "windows": {
-        "command": "C:/ti/msp430-gcc/bin/gdb_agent_console.exe C:/ti/msp430-gcc/msp430.dat"
-      },
-      "linux": {
-        "command": "~/ti/msp430-gcc/bin/gdb_agent_console.exe ~/ti/msp430-gcc/msp430.dat"
-      },
-      "isBackground": true
-    },
-    {
       "label": "Build ELF",
       "type": "shell",
       "command": "make"
-    },
-    {
-      "label": "postdebugKill",
-      "type": "process",
-      "command": [
-        "${command:workbench.action.tasks.terminate}",
-        "${command:workbench.action.acceptSelectedQuickOpenItem}"
-      ]
     }
   ]
 }
