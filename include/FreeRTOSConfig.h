@@ -55,7 +55,7 @@
 #define configTOTAL_HEAP_SIZE ( ( size_t )( 900 ) )
 #define configMAX_TASK_NAME_LEN ( 8 )
 #define configUSE_TRACE_FACILITY 0
-#define configUSE_16_BIT_TICKS 0
+#define configUSE_16_BIT_TICKS 1
 #define configIDLE_SHOULD_YIELD 0
 #define configTICK_VECTOR ( TIMER0_B0_VECTOR )
 
@@ -73,5 +73,11 @@ to exclude the API function. */
 #define INCLUDE_vTaskSuspend 0
 #define INCLUDE_vTaskDelayUntil 1
 #define INCLUDE_vTaskDelay 1
+
+/* Other FreeRTOS-specific defines */
+/* If defining 16 bit ticks, we overflow with the base implementation of pdMS_TO_TICKS. Therefore the uint32_t casting. */
+#ifdef configUSE_16_BIT_TICKS
+#define pdMS_TO_TICKS( xTimeInMs ) ( ( TickType_t )( ( ( uint32_t )( xTimeInMs ) * (TickType_t)configTICK_RATE_HZ ) / (TickType_t)1000 ) )
+#endif
 
 #endif /* FREERTOS_CONFIG_H */
