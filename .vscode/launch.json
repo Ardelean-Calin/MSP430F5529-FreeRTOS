@@ -10,6 +10,9 @@
       "request": "launch",
       "preLaunchTask": "Build ELF",
       "program": "${workspaceRoot}/build/main.out",
+      "MIMode": "gdb",
+      "miDebuggerServerAddress": "localhost:55000",
+      "miDebuggerArgs": "-x \"${workspaceFolder}/.gdbinit\"",
       "windows": {
         "debugServerPath": "C:/ti/msp430-gcc/bin/gdb_agent_console.exe",
         "debugServerArgs": "C:/ti/msp430-gcc/msp430.dat",
@@ -20,11 +23,15 @@
         "debugServerArgs": "~/ti/msp430-gcc/msp430.dat",
         "miDebuggerPath": "~/ti/msp430-gcc/bin/msp430-elf-gdb"
       },
-      "MIMode": "gdb",
-      "miDebuggerServerAddress": "localhost:55000",
+      "serverStarted": "Waiting for client",
       "stopAtEntry": true,
       "externalConsole": true,
       "cwd": "${workspaceRoot}"
+      // "logging": {
+      //   "engineLogging": true,
+      //   "trace": false,
+      //   "traceResponse": false
+      // }
     }
   ]
 }
