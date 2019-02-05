@@ -12,6 +12,7 @@
       "program": "${workspaceRoot}/build/main.out",
       "MIMode": "gdb",
       "miDebuggerServerAddress": "localhost:55000",
+      // Using GDB hooks: https://sourceware.org/gdb/current/onlinedocs/gdb/Hooks.html
       "miDebuggerArgs": "-x \"${workspaceFolder}/.gdbinit\"",
       "windows": {
         "debugServerPath": "C:/ti/msp430-gcc/bin/gdb_agent_console.exe",

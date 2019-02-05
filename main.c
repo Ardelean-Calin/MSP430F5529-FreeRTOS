@@ -16,9 +16,9 @@ int main( void )
 
     /* Two simple tasks */
     xTaskCreate(
-        vBlinkRedLEDTask, "BlinkyR", configMINIMAL_STACK_SIZE, NULL, 1U, NULL );
+        vBlinkRedLEDTask, "BlinkyR", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
     xTaskCreate(
-        vBlinkGreenLEDTask, "BlinkyG", configMINIMAL_STACK_SIZE, NULL, 1U, NULL );
+        vBlinkGreenLEDTask, "BlinkyG", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
 
     vTaskStartScheduler();
 
