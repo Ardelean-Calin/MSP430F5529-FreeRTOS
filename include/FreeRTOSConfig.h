@@ -56,7 +56,7 @@
 #define configMAX_TASK_NAME_LEN ( 8 )
 #define configUSE_TRACE_FACILITY 0
 #define configUSE_16_BIT_TICKS 0
-#define configIDLE_SHOULD_YIELD 1
+#define configIDLE_SHOULD_YIELD 0
 #define configTICK_VECTOR ( TIMER0_B0_VECTOR )
 
 /* Co-routine definitions. */
