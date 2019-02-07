@@ -3,6 +3,7 @@
 ############################################################################################
 # General config
 MAIN_SRC = main.c
+MAP_FILE = memory.map
 OUT_DIR = build
 OUT_NAME = main
 OUT_PATH = $(OUT_DIR)/$(OUT_NAME)
@@ -21,6 +22,7 @@ SUPPORT_FILES = $(MSP430_GCC_PATH)/include
 # Executables
 CC = $(MSP430_GCC_PATH)/bin/msp430-elf-gcc
 OBJCOPY = $(MSP430_GCC_PATH)/bin/msp430-elf-objcopy
+CODESIZE = $(MSP430_GCC_PATH)/bin/msp430-elf-size
 
 ############################################################################################
 # Hardware Abstraction Layer / TI Driverlib
@@ -46,11 +48,14 @@ CFLAGS += -I$(FREERTOS_DIR)/include -I$(FREERTOS_DIR)/portable/GCC/MSP430F5529 -
 LDFLAGS += -mmcu=msp430f5529
 LDFLAGS += -T$(LINKER_FILE) -L$(SUPPORT_FILES)
 
-# Enable for best debugging experience
+ifdef DEBUG
+# Best debugging experience
 CFLAGS += -Og -ggdb
-LDFLAGS += -Og -ggdb
-# Enable for maximum optimisation
-# CFLAGS+=-fdata-sections -ffunction-sections -Wl,--gc-sections
+else
+# Best code size
+CFLAGS += -Os -fdata-sections -ffunction-sections
+LDFLAGS += -Wl,--gc-sections
+endif
 
 # Just a simple function for printing bold text
 define ECHO_BOLD
@@ -69,13 +74,15 @@ outdir:
 # Targets & build commands
 elf: $(OBJECTS)
 	$(call ECHO_BOLD,"Compilation done. Linking...")
-	$(CC) -g $(LDFLAGS) -o $(OUT_PATH).out $^
+	$(CC) $(LDFLAGS) -o $(OUT_PATH).out -Xlinker -Map=$(OUT_DIR)/$(MAP_FILE) $^
 
 hex: elf
 	$(OBJCOPY) -O ihex $(OUT_PATH).out $(OUT_PATH).hex
 
 all: clean outdir elf hex
 	$(call ECHO_BOLD,"Done! .out and .hex generated in build directory.")
+	$(call ECHO_BOLD,"Printing code size...")
+	$(CODESIZE) $(OUT_PATH).out
 	@rm $(MAIN_SRC:.c=.o)
 
 clean:

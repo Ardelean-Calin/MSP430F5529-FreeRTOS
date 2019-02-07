@@ -7,6 +7,11 @@
       "label": "Build ELF",
       "type": "shell",
       "command": "make"
+    },
+    {
+      "label": "Build ELF Debug",
+      "type": "shell",
+      "command": "make DEBUG=1"
     }
   ]
 }

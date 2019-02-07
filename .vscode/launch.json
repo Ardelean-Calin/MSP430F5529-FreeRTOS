@@ -8,7 +8,7 @@
       "name": "MSP430 Debug",
       "type": "cppdbg",
       "request": "launch",
-      "preLaunchTask": "Build ELF",
+      "preLaunchTask": "Build ELF Debug",
       "program": "${workspaceRoot}/build/main.out",
       "MIMode": "gdb",
       "miDebuggerServerAddress": "localhost:55000",
